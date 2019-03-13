@@ -16,6 +16,7 @@
 
     <script>
         var baseItem = httpVueLoader('/js/components/base-item.vue');
+        var homeItem = httpVueLoader('/js/components/home-item.vue');
 
         new Vue({
             el: "#app",
@@ -24,18 +25,18 @@
             },
             methods: {
                 changeItem: function (item) {
-                    this.$router.push({ path: `/${item}` })
+                    this.$router.replace({ path: `/${item}` });
                 }
             },
             router: new VueRouter({
                 mode: 'history',
                 routes: [
-                    { path: '/:label', component: baseItem }
+                    { path: '/', component: homeItem },
+                    { path: '/home', component: homeItem },
+                    { path: '/:label', component: baseItem },
+                    { path: '/page/:label', component: homeItem },
                 ]
-            }),
-            created: function () {
-                this.$router.push({ path: `/Home` })
-            }
+            })
         });
     </script>
 </body>
