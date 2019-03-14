@@ -17,6 +17,7 @@
     <script>
         var baseItem = httpVueLoader('/js/components/base-item.vue');
         var homeItem = httpVueLoader('/js/components/home-item.vue');
+        var ttt = { template: '<h1>Страница не найдена</h1>' };
 
         new Vue({
             el: "#app",
@@ -25,16 +26,26 @@
             },
             methods: {
                 changeItem: function (item) {
-                    this.$router.replace({ path: `/${item}` });
+                    this.$router.push({ path: `/${item}` });
                 }
             },
             router: new VueRouter({
                 mode: 'history',
                 routes: [
-                    { path: '/', component: homeItem },
-                    { path: '/home', component: homeItem },
-                    { path: '/:label', component: baseItem },
-                    { path: '/page/:label', component: homeItem },
+                    { path: '/', redirect: '/home' },
+                    {
+                        path: '/home',
+                        component: homeItem,
+                        children: [
+                            {
+                                path: ':label',
+                                component: baseItem
+                            }, {
+                                path: '',
+                                component: ttt
+                            }]
+                    },
+                    { path: '/:label', component: baseItem }
                 ]
             })
         });

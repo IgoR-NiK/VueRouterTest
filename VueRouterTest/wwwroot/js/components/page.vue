@@ -6,26 +6,15 @@
 </template>
 
 <script>
-    var baseItem = httpVueLoader('/js/components/base-item.vue');
-
     module.exports = {
         components: {
             'nav-bar': httpVueLoader('/js/components/nav-bar.vue')
         },
         methods: {
             changeItem: function (item) {
-
-                this.$router.replace({ path: `/page/${item}` });
+                this.$router.push({ path: `/home/${item}` });
             }
-        },
-        router: new VueRouter({
-            mode: 'history',
-            routes: [
-                { path: '/page', component: baseItem },
-              //  { path: '/home', component: homeItem },
-                { path: '/page/:label', component: baseItem }
-            ]
-        })
+        }
     };
 </script>
 
