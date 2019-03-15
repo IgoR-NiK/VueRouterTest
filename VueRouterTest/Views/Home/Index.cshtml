@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="app">
-        <nav-bar v-bind:items="['Home', 'Services', 'About']" v-on:change-item="changeItem"></nav-bar>
+        <nav-bar v-bind:items="items"></nav-bar>
         <router-view></router-view>
     </div>
 
@@ -17,24 +17,33 @@
     <script>
         var baseItem = httpVueLoader('/js/components/base-item.vue');
         var homeItem = httpVueLoader('/js/components/home-item.vue');
-        var ttt = { template: '<h1>Страница не найдена</h1>' };
-
+        
         new Vue({
             el: "#app",
             components: {
                 'nav-bar': httpVueLoader('/js/components/nav-bar.vue')
             },
-            methods: {
-                changeItem: function (item) {
-                    this.$router.push({ path: `/${item}` });
-                }
+            data: {
+                items: [{
+                    name: 'Home',
+                    path: '/Home'
+                }, {
+                    name: 'Services',
+                    path: '/Services'
+                }, {
+                    name: 'About',
+                    path: '/About'
+                }, {
+                    name: 'News',
+                    path: '/News'
+                }]
             },
             router: new VueRouter({
                 mode: 'history',
                 routes: [
-                    { path: '/', redirect: '/home' },
+                    { path: '/', redirect: '/Home' },
                     {
-                        path: '/home',
+                        path: '/Home',
                         component: homeItem,
                         children: [
                             {
@@ -42,7 +51,7 @@
                                 component: baseItem
                             }, {
                                 path: '',
-                                component: ttt
+                                redirect: '/Home/SubPage1'
                             }]
                     },
                     { path: '/:label', component: baseItem }

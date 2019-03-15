@@ -1,25 +1,14 @@
 ﻿<template>
     <div>
         <nav>
-            <a v-for="item in items" href="#" v-bind:class="{ active : currentItem === item}" v-on:click="changeItem(item)">{{ item }}</a>
+            <router-link v-for="item in items" v-bind:to="{ path: `${item.path}` }">{{ item.name }}</router-link>
         </nav>
     </div>
 </template>
 
 <script>
     module.exports = {
-        props: ['items'],
-        data: function () {
-            return {
-                currentItem: this.items[0]
-            }
-        },
-        methods: {
-            changeItem: function (item) {
-                this.currentItem = item;
-                this.$emit('change-item', item);
-            }
-        }
+        props: ['items']        
     };
 </script>
 
@@ -74,7 +63,7 @@
             transition: background-color 0.25s;
         }
 
-            nav a.active {
+            nav a.router-link-active {
                 background-color: #e35885;
             }
 
