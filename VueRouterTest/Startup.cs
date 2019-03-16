@@ -45,7 +45,10 @@ namespace VueRouterTest
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }                       
+            }
+
+
+            app.UseStatusCodePagesWithReExecute("/Home");
 
             var provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".vue"] = "text/html";
